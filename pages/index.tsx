@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonGroup,
+  Container,
   Heading,
   Img,
   Stack,
@@ -10,7 +11,7 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <>
+    <Container maxW="container.md">
       <Stack spacing="40px" pt="100px" px="20px" alignItems="center">
         <Stack spacing="28px" alignItems="center">
           <Stack spacing="8px" alignItems="center">
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
         </Stack>
         <Img src="/thumbnail.png" rounded="lg" />
       </Stack>
-    </>
+    </Container>
   );
 };
 
