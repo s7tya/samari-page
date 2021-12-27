@@ -1,12 +1,10 @@
 import {
   Button,
   ButtonGroup,
-  Container,
   Heading,
   Img,
   Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 
