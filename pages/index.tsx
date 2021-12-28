@@ -1,14 +1,11 @@
 import {
   Button,
   ButtonGroup,
-  Container,
   Heading,
   Img,
   VStack,
-  Stack,
   Text,
   Grid,
-  GridItem,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { FeatureCard } from "../components/FeatureCard";
@@ -96,8 +93,9 @@ const Home: NextPage = () => {
       >
         <Heading fontSize="28px">簡単操作で漫画を一括投稿</Heading>
         <Grid templateColumns="1fr 1fr" gap="20px">
-          {features.map(feature => (
+          {features.map((feature, index) => (
             <FeatureCard
+              key={index}
               title={feature.title}
               description={feature.description}
             />
