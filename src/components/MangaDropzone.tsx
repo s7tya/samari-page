@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Stack, Text } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 
 export const MangaDropzone: React.FC = () => {
@@ -10,7 +10,8 @@ export const MangaDropzone: React.FC = () => {
   });
 
   return (
-    <Stack
+    <Box
+      position="relative"
       rounded="md"
       bg="white"
       px="20px"
@@ -18,37 +19,41 @@ export const MangaDropzone: React.FC = () => {
       border="2px dashed"
       borderColor="gray.400"
       textAlign="center"
-      alignItems="center"
-      w="full"
+      overflow="hidden"
       {...getRootProps()}
     >
       <input {...getInputProps()} />
-      {isDragActive ? (
-        <Text>ファイルをドロップしてアップロード</Text>
-      ) : (
-        <>
-          <Text>ファイルをドラッグ&ドロップしてアップロード</Text>
-          <Text fontSize="14px" color="gray.500">
-            または
-          </Text>
-          <Text
-            display="inline-block"
-            rounded="md"
-            px="4"
-            py="1"
-            cursor="pointer"
-            bg="yellow.400"
-            _hover={{
-              bg: "yellow.500",
-            }}
-          >
-            ファイルを選択
-          </Text>
-        </>
+      <Stack alignItems="center">
+        <Text>ファイルをドラッグ&ドロップしてアップロード</Text>
+        <Text fontSize="14px" color="gray.500">
+          または
+        </Text>
+        <Text
+          display="inline-block"
+          rounded="md"
+          px="4"
+          py="1"
+          cursor="pointer"
+          bg="yellow.400"
+          _hover={{
+            bg: "yellow.500",
+          }}
+        >
+          ファイルを選択
+        </Text>
+      </Stack>
+      {isDragActive && (
+        <Center
+          position="absolute"
+          left="0"
+          top="0"
+          w="full"
+          h="full"
+          bg="blackAlpha.700"
+        >
+          <Text color="white">ドロップしてアップロード</Text>
+        </Center>
       )}
-      {/* <Text fontSize="14px" color="gray.500">
-        ファイル形式: .jpg .png
-      </Text> */}
-    </Stack>
+    </Box>
   );
 };
