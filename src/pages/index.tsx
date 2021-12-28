@@ -12,20 +12,23 @@ import { FeatureCard } from "../components/FeatureCard";
 
 const features: { title: string; description: string }[] = [
   {
-    title: "こんな機能あるんだよ",
-    description: "もっと細かい説明が入るんだよ",
+    title: "時間指定",
+    description:
+      "多くの人に見てもらいやすい時間帯に自動でツイート。深夜に書き終わっても待つ必要はありません。",
   },
   {
-    title: "こんな機能あるんだよ",
-    description: "もっと細かい説明が入るんだよ",
+    title: "一括アップロード",
+    description:
+      "出力したフォルダごとドラッグ&ドロップするだけで投稿の設定ができます。",
   },
   {
-    title: "こんな機能あるんだよ",
-    description: "もっと細かい説明が入るんだよ",
+    title: "リアルタイムプレビュー",
+    description:
+      "実際にツイッターに投稿されたときの表示を確認しながら編集できます。",
   },
   {
-    title: "こんな機能あるんだよ",
-    description: "もっと細かい説明が入るんだよ",
+    title: "宣伝なし",
+    description: "ツイートにSamariの宣伝が入ることはありません。",
   },
 ];
 
@@ -53,9 +56,9 @@ const Home: NextPage = () => {
         }}
       >
         {/* Titles */}
-        <VStack spacing="8px">
+        <VStack spacing="8px" textAlign="center">
           <Heading fontSize="28px">簡単操作で漫画を一括投稿</Heading>
-          <Text textAlign="center">
+          <Text>
             一枚一枚画像を選んで 順番を間違えてやり直し...
             <br />
             Samari(サマリ)なら一括で選択して後から並べ替えるのも簡単です
@@ -91,8 +94,10 @@ const Home: NextPage = () => {
         px="20px"
         spacing="28px"
       >
-        <Heading fontSize="28px">簡単操作で漫画を一括投稿</Heading>
-        <Grid templateColumns="1fr 1fr" gap="20px">
+        <Heading fontSize="28px" textAlign="center">
+          内容だけに集中できるように
+        </Heading>
+        <Grid templateColumns={{ base: "1fr", sm: "1fr 1fr" }} gap="20px">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}
@@ -112,14 +117,20 @@ const Home: NextPage = () => {
         spacing="28px"
       >
         <VStack spacing="8px">
-          <Heading fontSize="28px">なんかいい感じに</Heading>
+          <Heading fontSize="28px">Twitterで進捗を見る</Heading>
           <Text textAlign="center">
-            一枚一枚画像を選んで 順番を間違えてやり直し...
-            <br />
-            Threadlyなら一括で選択して後から並べ替えるのも簡単です
+            Samariは現在開発中です。お知らせはTwitterで！
           </Text>
         </VStack>
         <ButtonGroup>
+          <Button
+            as="a"
+            bg="twitter"
+            color="white"
+            href="https://twitter.com/s7tya"
+          >
+            Twitterを開く
+          </Button>
           <Button
             as="a"
             colorScheme="gray"
