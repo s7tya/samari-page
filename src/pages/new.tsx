@@ -10,6 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { MangaDropzone } from "../components/MangaDropzone";
 
 const NewPost: NextPage = () => {
   return (
@@ -31,20 +32,7 @@ const NewPost: NextPage = () => {
               <Checkbox>ツイートにタイトルを含める</Checkbox>
             </Stack>
           </Stack>
-          <Stack
-            rounded="md"
-            bg="white"
-            p="20px"
-            border="2px dashed"
-            borderColor="gray.400"
-            textAlign="center"
-            w="full"
-          >
-            <Text>ファイルをドラッグ&ドロップ でアップロード</Text>
-            <Text fontSize="14px" color="gray.500">
-              ファイル形式: .jpg .png
-            </Text>
-          </Stack>
+          <MangaDropzone />
           <ButtonGroup>
             <Button
               bg="twitter"
