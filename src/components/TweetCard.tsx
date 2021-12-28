@@ -20,7 +20,7 @@ export const TweetCard: React.FC<TweetCardProps> = ({ body, hasChild }) => {
   const user = useUser();
 
   const images = [
-    "https://dummyimage.com/1200x630",
+    "https://dummyimage.com/200x630",
     "https://dummyimage.com/800x630",
     "https://dummyimage.com/1200x630",
     "https://dummyimage.com/1200x630",
@@ -51,8 +51,8 @@ export const TweetCard: React.FC<TweetCardProps> = ({ body, hasChild }) => {
             overflow="hidden"
           >
             {images.map(imageURL => (
-              <GridItem>
-                <Img h="full" objectFit="cover" src={imageURL} />
+              <GridItem maxH="200px">
+                <Img h="full" w="full" objectFit="cover" src={imageURL} />
               </GridItem>
             ))}
           </Grid>
