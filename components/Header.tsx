@@ -5,7 +5,8 @@ export const Header: React.FC = () => {
   return (
     <Flex
       as="header"
-      paddingY="12px"
+      py="12px"
+      px="20px"
       alignItems="center"
       maxW="container.md"
       mx="auto"
