@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
       <Spacer />
       <HStack>
         <Button size="sm">ログイン</Button>
-        <Button size="sm" colorScheme="brand" color="black">
+        <Button size="sm" colorScheme="yellow">
           新規登録
         </Button>
       </HStack>
