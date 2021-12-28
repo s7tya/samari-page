@@ -18,12 +18,6 @@ export const Header: React.FC = () => {
         </Text>
       </Text>
       <Spacer />
-      <HStack>
-        <Button size="sm">ログイン</Button>
-        <Button size="sm" colorScheme="yellow">
-          新規登録
-        </Button>
-      </HStack>
     </Flex>
   );
 };
