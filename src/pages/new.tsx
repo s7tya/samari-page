@@ -21,7 +21,7 @@ const NewPost: NextPage = () => {
         </Box>
         <Stack spacing="20px" alignItems="flex-end">
           <Stack rounded="md" bg="white" p="20px" spacing="20px" w="full">
-            <Stack>
+            <Stack spacing="4px">
               <Text fontSize="14px" fontWeight="bold">
                 タイトル
               </Text>

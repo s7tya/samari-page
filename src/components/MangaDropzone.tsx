@@ -28,6 +28,9 @@ export const MangaDropzone: React.FC = () => {
       ) : (
         <>
           <Text>ファイルをドラッグ&ドロップしてアップロード</Text>
+          <Text fontSize="14px" color="gray.500">
+            または
+          </Text>
           <Text
             display="inline-block"
             rounded="md"
