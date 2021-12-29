@@ -104,7 +104,7 @@ const NewPost: NextPage = () => {
                   setImages([]);
                 }}
               >
-                リセット
+                画像をリセット
               </Button>
             </ButtonGroup>
           </Stack>
