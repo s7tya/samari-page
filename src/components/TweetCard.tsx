@@ -10,12 +10,13 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useUser } from "../lib/auth";
+import { FileWithPreview } from "./MangaDropzone";
 
 interface TweetCardProps {
   body?: string;
-  images?: any[];
+  images?: FileWithPreview[];
   hasChild?: boolean;
-  setImages: (images: any[]) => void;
+  setImages: (images: FileWithPreview[]) => void;
 }
 
 export const TweetCard: React.FC<TweetCardProps> = ({
@@ -50,7 +51,7 @@ export const TweetCard: React.FC<TweetCardProps> = ({
             rounded="md"
             overflow="hidden"
           >
-            {images.map((image: any, index: number) => (
+            {images.map((image, index) => (
               <GridItem maxH="200px" key={index}>
                 <Img h="full" w="full" objectFit="cover" src={image.preview} />
               </GridItem>

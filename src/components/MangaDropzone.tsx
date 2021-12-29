@@ -2,13 +2,17 @@ import React, { useCallback } from "react";
 import { Box, Center, Stack, Text } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 
+export interface FileWithPreview extends File {
+  preview: string;
+}
+
 interface MangaDropzoneProps {
   setImages: (images: any[]) => void;
 }
 
 export const MangaDropzone: React.FC<MangaDropzoneProps> = ({ setImages }) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    const filesWithPreview = acceptedFiles.map(file =>
+    const filesWithPreview: FileWithPreview[] = acceptedFiles.map(file =>
       Object.assign(file, {
         preview: URL.createObjectURL(file),
       })

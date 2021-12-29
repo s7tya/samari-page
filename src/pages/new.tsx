@@ -11,11 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { MangaDropzone } from "../components/MangaDropzone";
+import { FileWithPreview, MangaDropzone } from "../components/MangaDropzone";
 import { TweetCard } from "../components/TweetCard";
 
 const NewPost: NextPage = () => {
-  const [images, setImages] = useState<any[]>();
+  const [images, setImages] = useState<FileWithPreview[]>();
 
   return (
     <Container maxW="container.lg" px="20px">
