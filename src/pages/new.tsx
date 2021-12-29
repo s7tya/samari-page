@@ -17,17 +17,36 @@ import { TweetCard } from "../components/TweetCard";
 const NewPost: NextPage = () => {
   const [images, setImages] = useState<FileWithPreview[]>();
 
+  const [postTitle, setPostTitle] = useState("");
+  const [includeTitle, setIncludeTitle] = useState(true);
+  const [includeNumber, setIncludeNumber] = useState(true);
+
+  const tweets = [
+    {
+      hasChild: true,
+      images: images,
+    },
+    {
+      hasChild: false,
+      image: images,
+    },
+  ];
+
   return (
     <Container maxW="container.lg" px="20px">
       <Grid templateColumns={{ base: "1fr", md: "6fr 4fr" }} gap="40px">
         <Box>
           <Box rounded="md" bg="white" p="20px">
-            <TweetCard
-              body="漫画を一括アップロードできるやつを作る (1/4)"
-              hasChild={true}
-              images={images}
-              setImages={setImages}
-            />
+            {tweets.map((tweet, index) => (
+              <TweetCard
+                body={`${includeTitle || index == 0 ? postTitle : ""} ${
+                  includeNumber ? `(${index + 1}/${tweets.length + 1})` : ""
+                }`}
+                hasChild={true}
+                images={images}
+                setImages={setImages}
+              />
+            ))}
           </Box>
         </Box>
         <Stack spacing="20px" alignItems="flex-end">
@@ -36,11 +55,32 @@ const NewPost: NextPage = () => {
               <Text fontSize="14px" fontWeight="bold">
                 タイトル
               </Text>
-              <Input size="sm" rounded="md" />
+              <Input
+                size="sm"
+                rounded="md"
+                value={postTitle}
+                onChange={e => {
+                  setPostTitle(e.target.value);
+                }}
+              />
             </Stack>
             <Stack>
-              <Checkbox>ツイートに番号を含める</Checkbox>
-              <Checkbox>ツイートにタイトルを含める</Checkbox>
+              <Checkbox
+                isChecked={includeNumber}
+                onChange={e => {
+                  setIncludeNumber(e.target.checked);
+                }}
+              >
+                ツイートに番号を含める
+              </Checkbox>
+              <Checkbox
+                isChecked={includeTitle}
+                onChange={e => {
+                  setIncludeTitle(e.target.checked);
+                }}
+              >
+                すべてのツイートにタイトルを含める
+              </Checkbox>
             </Stack>
           </Stack>
           <MangaDropzone setImages={setImages} />
