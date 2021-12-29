@@ -13,18 +13,18 @@ import { useUser } from "../lib/auth";
 
 interface TweetCardProps {
   body?: string;
+  images?: any[];
   hasChild?: boolean;
+  setImages: (images: any[]) => void;
 }
 
-export const TweetCard: React.FC<TweetCardProps> = ({ body, hasChild }) => {
+export const TweetCard: React.FC<TweetCardProps> = ({
+  body,
+  images = [],
+  hasChild,
+  setImages,
+}) => {
   const user = useUser();
-
-  const images = [
-    "https://dummyimage.com/200x630",
-    "https://dummyimage.com/800x630",
-    "https://dummyimage.com/1200x630",
-    "https://dummyimage.com/1200x630",
-  ];
 
   return (
     <Stack spacing="0">
@@ -50,9 +50,9 @@ export const TweetCard: React.FC<TweetCardProps> = ({ body, hasChild }) => {
             rounded="md"
             overflow="hidden"
           >
-            {images.map(imageURL => (
+            {images.map((image: any, index: number) => (
               <GridItem maxH="200px">
-                <Img h="full" w="full" objectFit="cover" src={imageURL} />
+                <Img h="full" w="full" objectFit="cover" src={image.preview} />
               </GridItem>
             ))}
           </Grid>

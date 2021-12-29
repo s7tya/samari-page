@@ -2,8 +2,20 @@ import React, { useCallback } from "react";
 import { Box, Center, Stack, Text } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 
-export const MangaDropzone: React.FC = () => {
-  const onDrop = useCallback(acceptedFiles => {}, []);
+interface MangaDropzoneProps {
+  setImages: (images: any[]) => void;
+}
+
+export const MangaDropzone: React.FC<MangaDropzoneProps> = ({ setImages }) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const filesWithPreview = acceptedFiles.map(file =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      })
+    );
+    setImages(filesWithPreview);
+  }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
     onDrop,

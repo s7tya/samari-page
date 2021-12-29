@@ -10,10 +10,13 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { useEffect, useState } from "react";
 import { MangaDropzone } from "../components/MangaDropzone";
 import { TweetCard } from "../components/TweetCard";
 
 const NewPost: NextPage = () => {
+  const [images, setImages] = useState<any[]>();
+
   return (
     <Container maxW="container.lg" px="20px">
       <Grid templateColumns={{ base: "1fr", md: "6fr 4fr" }} gap="40px">
@@ -21,10 +24,8 @@ const NewPost: NextPage = () => {
           <TweetCard
             body="漫画を一括アップロードできるやつを作る (1/4)"
             hasChild={true}
-          />
-          <TweetCard
-            body="漫画を一括アップロードできるやつを作る (2/4)"
-            hasChild={true}
+            images={images}
+            setImages={setImages}
           />
         </Box>
         <Stack spacing="20px" alignItems="flex-end">
@@ -40,7 +41,7 @@ const NewPost: NextPage = () => {
               <Checkbox>ツイートにタイトルを含める</Checkbox>
             </Stack>
           </Stack>
-          <MangaDropzone />
+          <MangaDropzone setImages={setImages} />
           <ButtonGroup>
             <Button
               bg="twitter"
