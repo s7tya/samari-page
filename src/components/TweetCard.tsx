@@ -51,7 +51,7 @@ export const TweetCard: React.FC<TweetCardProps> = ({
             overflow="hidden"
           >
             {images.map((image: any, index: number) => (
-              <GridItem maxH="200px">
+              <GridItem maxH="200px" key={index}>
                 <Img h="full" w="full" objectFit="cover" src={image.preview} />
               </GridItem>
             ))}
