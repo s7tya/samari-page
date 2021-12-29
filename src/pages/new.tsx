@@ -42,6 +42,14 @@ const NewPost: NextPage = () => {
       <Grid templateColumns={{ base: "1fr", md: "6fr 4fr" }} gap="40px">
         <Box>
           <Box rounded="md" bg="white" p="20px">
+            {tweets.length === 0 && (
+              <Stack textAlign="center" spacing="4px" py="20px">
+                <Text>画像がありません</Text>
+                <Text fontSize="14px" color="gray.500">
+                  アップロードしてプレビューを表示しましょう
+                </Text>
+              </Stack>
+            )}
             {tweets.map((tweetImages, index) => (
               <TweetCard
                 key={index}
