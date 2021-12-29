@@ -7,7 +7,7 @@ export interface FileWithPreview extends File {
 }
 
 interface MangaDropzoneProps {
-  setImages: (images: any[]) => void;
+  setImages: (images: FileWithPreview[]) => void;
 }
 
 export const MangaDropzone: React.FC<MangaDropzoneProps> = ({ setImages }) => {
