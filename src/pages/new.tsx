@@ -96,6 +96,17 @@ const NewPost: NextPage = () => {
                 すべてのツイートにタイトルを含める
               </Checkbox>
             </Stack>
+            <ButtonGroup>
+              <Button
+                size="xs"
+                colorScheme="red"
+                onClick={() => {
+                  setImages([]);
+                }}
+              >
+                リセット
+              </Button>
+            </ButtonGroup>
           </Stack>
           <MangaDropzone setImages={setImages} />
           <ButtonGroup>
