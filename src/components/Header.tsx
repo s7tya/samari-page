@@ -1,8 +1,10 @@
 import {
   Avatar,
+  Box,
   Button,
   Flex,
   HStack,
+  Img,
   Menu,
   MenuButton,
   MenuItem,
@@ -27,12 +29,9 @@ export const Header: React.FC = () => {
       mx="auto"
     >
       <NextLink href="/" passHref>
-        <Text as="a" fontWeight="bold">
-          Samari
-          <Text as="span" fontSize="sm" color="gray.500">
-            (サマリ)
-          </Text>
-        </Text>
+        <Box as="a">
+          <Img src="/samari-logo.png" h="24px" />
+        </Box>
       </NextLink>
       <Spacer />
       <HStack>
