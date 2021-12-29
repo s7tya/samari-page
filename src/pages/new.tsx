@@ -14,37 +14,42 @@ import { useEffect, useState } from "react";
 import { FileWithPreview, MangaDropzone } from "../components/MangaDropzone";
 import { TweetCard } from "../components/TweetCard";
 
+const arrayChunk = ([...array], size = 1) => {
+  return array.reduce(
+    (acc, _value, index) =>
+      index % size ? acc : [...acc, array.slice(index, index + size)],
+    []
+  );
+};
+
 const NewPost: NextPage = () => {
   const [images, setImages] = useState<FileWithPreview[]>();
 
   const [postTitle, setPostTitle] = useState("");
   const [includeTitle, setIncludeTitle] = useState(true);
   const [includeNumber, setIncludeNumber] = useState(true);
+  const [tweets, setTweets] = useState<FileWithPreview[][]>([]);
 
-  const tweets = [
-    {
-      hasChild: true,
-      images: images,
-    },
-    {
-      hasChild: false,
-      image: images,
-    },
-  ];
+  useEffect(() => {
+    if (images) {
+      setTweets(arrayChunk(images, 4));
+    } else {
+    }
+  }, [images]);
 
   return (
     <Container maxW="container.lg" px="20px">
       <Grid templateColumns={{ base: "1fr", md: "6fr 4fr" }} gap="40px">
         <Box>
           <Box rounded="md" bg="white" p="20px">
-            {tweets.map((tweet, index) => (
+            {tweets.map((tweetImages, index) => (
               <TweetCard
                 key={index}
                 body={`${includeTitle || index == 0 ? postTitle : ""} ${
                   includeNumber ? `(${index + 1}/${tweets.length + 1})` : ""
                 }`}
                 hasChild={true}
-                images={images}
+                images={tweetImages}
                 setImages={setImages}
               />
             ))}
