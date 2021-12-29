@@ -20,13 +20,15 @@ const NewPost: NextPage = () => {
   return (
     <Container maxW="container.lg" px="20px">
       <Grid templateColumns={{ base: "1fr", md: "6fr 4fr" }} gap="40px">
-        <Box rounded="md" bg="white" p="20px">
-          <TweetCard
-            body="漫画を一括アップロードできるやつを作る (1/4)"
-            hasChild={true}
-            images={images}
-            setImages={setImages}
-          />
+        <Box>
+          <Box rounded="md" bg="white" p="20px">
+            <TweetCard
+              body="漫画を一括アップロードできるやつを作る (1/4)"
+              hasChild={true}
+              images={images}
+              setImages={setImages}
+            />
+          </Box>
         </Box>
         <Stack spacing="20px" alignItems="flex-end">
           <Stack rounded="md" bg="white" p="20px" spacing="20px" w="full">
