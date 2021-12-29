@@ -39,6 +39,7 @@ const NewPost: NextPage = () => {
           <Box rounded="md" bg="white" p="20px">
             {tweets.map((tweet, index) => (
               <TweetCard
+                key={index}
                 body={`${includeTitle || index == 0 ? postTitle : ""} ${
                   includeNumber ? `(${index + 1}/${tweets.length + 1})` : ""
                 }`}
