@@ -23,7 +23,7 @@ const arrayChunk = ([...array], size = 1) => {
 };
 
 const NewPost: NextPage = () => {
-  const [images, setImages] = useState<FileWithPreview[]>();
+  const [images, setImages] = useState<FileWithPreview[]>([]);
 
   const [postTitle, setPostTitle] = useState("");
   const [includeTitle, setIncludeTitle] = useState(true);
