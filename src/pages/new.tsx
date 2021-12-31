@@ -161,7 +161,10 @@ const NewPost: NextPage = () => {
               bg="twitter"
               color="white"
               _hover={{ bg: "blue.500", color: "white" }}
-              onClick={tweet}
+              onClick={async () => {
+                await tweet();
+                await setImages([]);
+              }}
               isDisabled={tweets.length == 0 || !user}
             >
               ツイートする
