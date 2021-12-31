@@ -7,6 +7,7 @@ import { useAuth } from "../lib/auth";
 import { RecoilRoot } from "recoil";
 import SEO from "../../next-seo.config";
 import { DefaultSeo } from "next-seo";
+import { Toaster } from "react-hot-toast";
 
 const Auth = ({ children }: { children: JSX.Element }): JSX.Element => {
   const isLoading = useAuth();
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <ChakraProvider theme={theme}>
             <Header />
             <Component {...pageProps} />
+            <Toaster />
           </ChakraProvider>
         </Auth>
       </RecoilRoot>
