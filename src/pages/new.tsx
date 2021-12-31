@@ -108,9 +108,9 @@ const NewPost: NextPage = () => {
             {tweets.map((tweetImages, index) => (
               <TweetCard
                 key={index}
-                body={`${includeTitle || index == 0 ? postTitle : ""} (${
-                  index + 1
-                }/${tweets.length})`}
+                body={`${includeTitle || index == 0 ? postTitle : ""} ${
+                  tweets.length > 1 ? `(${index + 1}/${tweets.length})` : ""
+                }`}
                 hasChild={true}
                 images={tweetImages}
                 setImages={setImages}
