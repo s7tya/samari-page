@@ -9,6 +9,7 @@ import {
   TwitterAuthProvider,
 } from "firebase/auth";
 import { app } from "./firebase";
+import { useRouter } from "next/router";
 
 type UserState = User | null;
 
@@ -30,12 +31,17 @@ export const logout = () => {
 };
 
 export const useAuth = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
     const auth = getAuth(app);
     return onAuthStateChanged(auth, user => {
+      if (user) {
+        router.push("/callback");
+      }
+
       setUser(user);
       setIsLoading(false);
     });

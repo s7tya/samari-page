@@ -13,6 +13,8 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { FileWithPreview, MangaDropzone } from "../components/MangaDropzone";
 import { TweetCard } from "../components/TweetCard";
+import { useUser } from "../lib/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const arrayChunk = ([...array], size = 1) => {
   return array.reduce(
@@ -22,13 +24,66 @@ const arrayChunk = ([...array], size = 1) => {
   );
 };
 
+const toBase64 = async (blob: File) => {
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+
+      if (typeof dataUrl !== "string") {
+        return new Error("Invalid image");
+      }
+
+      resolve(dataUrl?.replace(/data:.*\/.*;base64,/, ""));
+    };
+    reader.readAsDataURL(blob);
+  });
+};
+
 const NewPost: NextPage = () => {
+  const user = useUser();
   const [images, setImages] = useState<FileWithPreview[]>([]);
 
   const [postTitle, setPostTitle] = useState("");
   const [includeTitle, setIncludeTitle] = useState(true);
-  const [includeNumber, setIncludeNumber] = useState(true);
   const [tweets, setTweets] = useState<FileWithPreview[][]>([]);
+
+  const tweet = async () => {
+    if (!user) {
+      return;
+    }
+
+    const db = getFirestore();
+    const docRef = doc(db, "tokens", user?.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      return;
+    }
+
+    const base64Images = await Promise.all(
+      images.map(async image => {
+        return await toBase64(image);
+      })
+    );
+
+    if (!base64Images[0]) {
+      return;
+    }
+
+    const body = JSON.stringify({
+      accessToken: docSnap.data().accessToken,
+      accessTokenSecret: docSnap.data().accessTokenSecret,
+      images: base64Images,
+      title: postTitle,
+      includeTitle: includeTitle,
+    });
+
+    await fetch(`/api/tweet`, {
+      method: "POST",
+      body,
+    });
+  };
 
   useEffect(() => {
     if (images) {
@@ -53,9 +108,9 @@ const NewPost: NextPage = () => {
             {tweets.map((tweetImages, index) => (
               <TweetCard
                 key={index}
-                body={`${includeTitle || index == 0 ? postTitle : ""} ${
-                  includeNumber ? `(${index + 1}/${tweets.length + 1})` : ""
-                }`}
+                body={`${includeTitle || index == 0 ? postTitle : ""} (${
+                  index + 1
+                }/${tweets.length})`}
                 hasChild={true}
                 images={tweetImages}
                 setImages={setImages}
@@ -79,14 +134,6 @@ const NewPost: NextPage = () => {
               />
             </Stack>
             <Stack>
-              <Checkbox
-                isChecked={includeNumber}
-                onChange={e => {
-                  setIncludeNumber(e.target.checked);
-                }}
-              >
-                ツイートに番号を含める
-              </Checkbox>
               <Checkbox
                 isChecked={includeTitle}
                 onChange={e => {
@@ -114,6 +161,8 @@ const NewPost: NextPage = () => {
               bg="twitter"
               color="white"
               _hover={{ bg: "blue.500", color: "white" }}
+              onClick={tweet}
+              isDisabled={tweets.length == 0 || !user}
             >
               ツイートする
             </Button>
