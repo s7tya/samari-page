@@ -15,6 +15,7 @@ import { FileWithPreview, MangaDropzone } from "../components/MangaDropzone";
 import { TweetCard } from "../components/TweetCard";
 import { useUser } from "../lib/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import toast, { Toaster } from "react-hot-toast";
 
 const arrayChunk = ([...array], size = 1) => {
   return array.reduce(
@@ -47,6 +48,8 @@ const NewPost: NextPage = () => {
   const [postTitle, setPostTitle] = useState("");
   const [includeTitle, setIncludeTitle] = useState(true);
   const [tweets, setTweets] = useState<FileWithPreview[][]>([]);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const tweet = async () => {
     if (!user) {
@@ -85,6 +88,12 @@ const NewPost: NextPage = () => {
     });
   };
 
+  const success = async () => {
+    toast.success("ツイートしました", {
+      duration: 1500,
+    });
+  };
+
   useEffect(() => {
     if (images) {
       setTweets(arrayChunk(images, 4));
@@ -93,83 +102,93 @@ const NewPost: NextPage = () => {
   }, [images]);
 
   return (
-    <Container maxW="container.lg" px="20px">
-      <Grid templateColumns={{ base: "1fr", md: "6fr 4fr" }} gap="40px">
-        <Box>
-          <Box rounded="md" bg="white" p="20px">
-            {tweets.length === 0 && (
-              <Stack textAlign="center" spacing="4px" py="20px">
-                <Text>画像がありません</Text>
-                <Text fontSize="14px" color="gray.500">
-                  アップロードしてプレビューを表示しましょう
-                </Text>
-              </Stack>
-            )}
-            {tweets.map((tweetImages, index) => (
-              <TweetCard
-                key={index}
-                body={`${includeTitle || index == 0 ? postTitle : ""} ${
-                  tweets.length > 1 ? `(${index + 1}/${tweets.length})` : ""
-                }`}
-                hasChild={true}
-                images={tweetImages}
-                setImages={setImages}
-              />
-            ))}
+    <>
+      <Container maxW="container.lg" px="20px">
+        <Grid templateColumns={{ base: "1fr", md: "6fr 4fr" }} gap="40px">
+          <Box>
+            <Box rounded="md" bg="white" p="20px">
+              {tweets.length === 0 && (
+                <Stack textAlign="center" spacing="4px" py="20px">
+                  <Text>画像がありません</Text>
+                  <Text fontSize="14px" color="gray.500">
+                    アップロードしてプレビューを表示しましょう
+                  </Text>
+                </Stack>
+              )}
+              {tweets.map((tweetImages, index) => (
+                <TweetCard
+                  key={index}
+                  body={`${includeTitle || index == 0 ? postTitle : ""} ${
+                    tweets.length > 1 ? `(${index + 1}/${tweets.length})` : ""
+                  }`}
+                  hasChild={true}
+                  images={tweetImages}
+                  setImages={setImages}
+                />
+              ))}
+            </Box>
           </Box>
-        </Box>
-        <Stack spacing="20px" alignItems="flex-end">
-          <Stack rounded="md" bg="white" p="20px" spacing="20px" w="full">
-            <Stack spacing="4px">
-              <Text fontSize="14px" fontWeight="bold">
-                タイトル
-              </Text>
-              <Input
-                size="sm"
-                rounded="md"
-                value={postTitle}
-                onChange={e => {
-                  setPostTitle(e.target.value);
-                }}
-              />
+          <Stack spacing="20px" alignItems="flex-end">
+            <Stack rounded="md" bg="white" p="20px" spacing="20px" w="full">
+              <Stack spacing="4px">
+                <Text fontSize="14px" fontWeight="bold">
+                  タイトル
+                </Text>
+                <Input
+                  size="sm"
+                  rounded="md"
+                  value={postTitle}
+                  onChange={e => {
+                    setPostTitle(e.target.value);
+                  }}
+                />
+              </Stack>
+              <Stack>
+                <Checkbox
+                  isChecked={includeTitle}
+                  onChange={e => {
+                    setIncludeTitle(e.target.checked);
+                  }}
+                >
+                  すべてのツイートにタイトルを含める
+                </Checkbox>
+              </Stack>
+              <ButtonGroup>
+                <Button
+                  size="xs"
+                  colorScheme="red"
+                  onClick={() => {
+                    setImages([]);
+                  }}
+                >
+                  画像をリセット
+                </Button>
+              </ButtonGroup>
             </Stack>
-            <Stack>
-              <Checkbox
-                isChecked={includeTitle}
-                onChange={e => {
-                  setIncludeTitle(e.target.checked);
-                }}
-              >
-                すべてのツイートにタイトルを含める
-              </Checkbox>
-            </Stack>
+            <MangaDropzone setImages={setImages} />
             <ButtonGroup>
               <Button
-                size="xs"
-                colorScheme="red"
-                onClick={() => {
-                  setImages([]);
+                bg="twitter"
+                color="white"
+                _hover={{ bg: "blue.500", color: "white" }}
+                onClick={async () => {
+                  setIsLoading(true);
+                  await tweet();
+                  await setImages([]);
+                  setIsLoading(false);
+                  await success();
                 }}
+                isLoading={isLoading}
+                isDisabled={tweets.length == 0 || !user}
               >
-                画像をリセット
+                ツイートする
               </Button>
             </ButtonGroup>
           </Stack>
-          <MangaDropzone setImages={setImages} />
-          <ButtonGroup>
-            <Button
-              bg="twitter"
-              color="white"
-              _hover={{ bg: "blue.500", color: "white" }}
-              onClick={tweet}
-              isDisabled={tweets.length == 0 || !user}
-            >
-              ツイートする
-            </Button>
-          </ButtonGroup>
-        </Stack>
-      </Grid>
-    </Container>
+        </Grid>
+      </Container>
+      <Toaster />
+    </>
   );
 };
 
