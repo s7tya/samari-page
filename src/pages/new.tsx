@@ -187,7 +187,6 @@ const NewPost: NextPage = () => {
           </Stack>
         </Grid>
       </Container>
-      <Toaster />
     </>
   );
 };

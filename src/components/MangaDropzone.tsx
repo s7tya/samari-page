@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useCallback } from "react";
 import { Box, Center, Stack, Text } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
+import toast, { Toaster } from "react-hot-toast";
 
 export interface FileWithPreview extends File {
   preview: string;
@@ -22,10 +23,17 @@ export const MangaDropzone: React.FC<MangaDropzoneProps> = ({ setImages }) => {
     setImages(prev => [...prev, ...files]);
   }, []);
 
+  const onDropRejected = async () => {
+    await toast.error("ファイルが間違っています", {
+      duration: 1500,
+    });
+  };
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/png",
     maxSize: 5e6,
     onDrop,
+    onDropRejected,
   });
 
   return (
