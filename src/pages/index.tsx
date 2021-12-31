@@ -6,9 +6,14 @@ import {
   VStack,
   Text,
   Grid,
+  Link,
+  Stack,
+  HStack,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { BadgeLink } from "../components/BadgeLink";
 import { FeatureCard } from "../components/FeatureCard";
+import { login } from "../lib/auth";
 
 const features: { title: string; description: string }[] = [
   {
@@ -68,6 +73,18 @@ const Home: NextPage = () => {
         {/* Buttons */}
         <ButtonGroup>
           <Button
+            color="white"
+            bg="twitter"
+            _hover={{
+              bg: "blue.500",
+            }}
+            onClick={() => {
+              login();
+            }}
+          >
+            Twitterでログイン
+          </Button>
+          <Button
             as="a"
             colorScheme="yellow"
             color="black"
@@ -116,29 +133,32 @@ const Home: NextPage = () => {
         clipPath="polygon(0 100px, 0 100%, 100% 100%, 100% 0)"
         spacing="28px"
       >
-        <VStack spacing="8px">
-          <Heading fontSize="28px">Twitterで進捗を見る</Heading>
-          <Text textAlign="center">
-            Samariは現在開発中です。お知らせはTwitterで！
+        <VStack spacing="20px">
+          <Heading fontSize="28px">Special Thanks &lt;3</Heading>
+          <HStack>
+            <BadgeLink href="https://twitter.com/kero_BIRUGE">
+              ケロ (@kero_BIRUGE)
+            </BadgeLink>
+            <BadgeLink href="https://twitter.com/aumy_f">
+              おーみー (@aumy_f)
+            </BadgeLink>
+            <BadgeLink href="https://twitter.com/Nekoya3_">
+              ɴᴇᴋᴏʏᴀsᴀɴ (@Nekoya3_)
+            </BadgeLink>
+          </HStack>
+          <Text>
+            Made with ❤ by{" "}
+            <Link
+              href="https://twitter.com/s7tya"
+              textDecoration="underline"
+              _hover={{
+                textDecoration: "none",
+              }}
+            >
+              Shina
+            </Link>
           </Text>
         </VStack>
-        <ButtonGroup>
-          <Button
-            as="a"
-            bg="twitter"
-            color="white"
-            href="https://twitter.com/s7tya"
-          >
-            Twitterを開く
-          </Button>
-          <Button
-            as="a"
-            colorScheme="gray"
-            href="https://zenn.dev/s7/scraps/1f58a6cf883b6e"
-          >
-            詳細を見る
-          </Button>
-        </ButtonGroup>
       </VStack>
     </>
   );
