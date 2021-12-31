@@ -45,15 +45,13 @@ const Home: NextPage = () => {
         pt="40px"
         pb="140px"
         px="20px"
-        maxW="container.md"
-        mx="auto"
         spacing="28px"
         position="relative"
         _before={{
           content: `""`,
           bg: "yellow.400",
           position: "absolute",
-          width: "100vw",
+          width: "100%",
           height: "100%",
           bottom: 0,
           clipPath:
@@ -61,7 +59,7 @@ const Home: NextPage = () => {
         }}
       >
         {/* Titles */}
-        <VStack spacing="8px" textAlign="center">
+        <VStack spacing="8px" textAlign="center" maxW="container.md" mx="auto">
           <Heading fontSize="28px">簡単操作で漫画を一括投稿</Heading>
           <Text>
             一枚一枚画像を選んで 順番を間違えてやり直し...
@@ -71,7 +69,7 @@ const Home: NextPage = () => {
         </VStack>
 
         {/* Buttons */}
-        <ButtonGroup>
+        <ButtonGroup maxW="container.md" mx="auto">
           <Button
             color="white"
             bg="twitter"
@@ -101,6 +99,8 @@ const Home: NextPage = () => {
           zIndex="100"
           border="2px"
           borderColor="gray.200"
+          maxW="container.md"
+          mx="auto"
         />
       </VStack>
       <VStack
@@ -135,7 +135,7 @@ const Home: NextPage = () => {
       >
         <VStack spacing="20px">
           <Heading fontSize="28px">Special Thanks &lt;3</Heading>
-          <HStack>
+          <Stack direction={{ base: "column", sm: "row" }}>
             <BadgeLink href="https://twitter.com/kero_BIRUGE">
               ケロ (@kero_BIRUGE)
             </BadgeLink>
@@ -145,7 +145,7 @@ const Home: NextPage = () => {
             <BadgeLink href="https://twitter.com/Nekoya3_">
               ɴᴇᴋᴏʏᴀsᴀɴ (@Nekoya3_)
             </BadgeLink>
-          </HStack>
+          </Stack>
           <Text>
             Made with ❤ by{" "}
             <Link
