@@ -99,7 +99,7 @@ const Home: NextPage = () => {
           zIndex="100"
           border="2px"
           borderColor="gray.200"
-          maxW="container.md"
+          maxW={{ base: "100%", sm: "container.md" }}
           mx="auto"
         />
       </VStack>
