@@ -23,7 +23,8 @@ export const MangaDropzone: React.FC<MangaDropzoneProps> = ({ setImages }) => {
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/*",
+    accept: "image/png",
+    maxSize: 5e6,
     onDrop,
   });
 
