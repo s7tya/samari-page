@@ -135,7 +135,7 @@ const Home: NextPage = () => {
       >
         <VStack spacing="20px">
           <Heading fontSize="28px">Special Thanks &lt;3</Heading>
-          <HStack>
+          <Stack direction={{ base: "column", sm: "row" }}>
             <BadgeLink href="https://twitter.com/kero_BIRUGE">
               ケロ (@kero_BIRUGE)
             </BadgeLink>
@@ -145,7 +145,7 @@ const Home: NextPage = () => {
             <BadgeLink href="https://twitter.com/Nekoya3_">
               ɴᴇᴋᴏʏᴀsᴀɴ (@Nekoya3_)
             </BadgeLink>
-          </HStack>
+          </Stack>
           <Text>
             Made with ❤ by{" "}
             <Link
