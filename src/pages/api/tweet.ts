@@ -67,9 +67,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const tweet = await twitterClient.tweets.statusesUpdate({
-      status: `${body.includeTitle ? body.title : ""} (${index + 1}/${
-        chunkedImages.length
-      })`,
+      status: `${body.includeTitle || index == 0 ? body.title : ""} (${
+        index + 1
+      }/${chunkedImages.length})`,
       media_ids: media_ids.join(","),
       in_reply_to_status_id: latestTweetId,
     });
